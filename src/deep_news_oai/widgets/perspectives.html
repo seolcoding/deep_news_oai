@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+      color: var(--text-color, #1a1a1a);
+      background: var(--bg-color, #ffffff);
+      padding: 16px;
+    }
+    .dark { --text-color: #e5e5e5; --bg-color: #1a1a1a; --border-color: #333; --hover-bg: #2a2a2a; --bar-color: #4a9eff; }
+    .light { --text-color: #1a1a1a; --bg-color: #ffffff; --border-color: #e0e0e0; --hover-bg: #f5f5f5; --bar-color: #0066cc; }
+
+    .header {
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color, #e0e0e0);
+    }
+    .title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+    .subtitle { font-size: 14px; color: #666; }
+    .stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+    .stat-value { font-weight: 600; color: var(--bar-color); }
+
+    .chart-section {
+      margin-bottom: 16px;
+      padding: 12px;
+      background: var(--hover-bg, #f5f5f5);
+      border-radius: 8px;
+    }
+    .chart-title {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      color: #666;
+    }
+    .bar-chart { display: flex; flex-direction: column; gap: 6px; }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bar-label {
+      width: 80px;
+      font-size: 12px;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bar-track {
+      flex: 1;
+      height: 20px;
+      background: var(--border-color, #e0e0e0);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: var(--bar-color, #0066cc);
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    .bar-fill.top { background: #e63946; }
+    .bar-count {
+      width: 50px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .publishers { display: flex; flex-direction: column; gap: 10px; }
+    .publisher {
+      border: 1px solid var(--border-color, #e0e0e0);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .publisher.top { border-left: 3px solid #e63946; }
+    .publisher-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: var(--hover-bg, #f5f5f5);
+      cursor: pointer;
+    }
+    .publisher-name { font-size: 14px; font-weight: 600; }
+    .publisher-count {
+      display: inline-block;
+      padding: 2px 10px;
+      background: var(--bar-color, #0066cc);
+      color: white;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+    .publisher.top .publisher-count { background: #e63946; }
+    .publisher-body {
+      padding: 10px 12px;
+      display: none;
+    }
+    .publisher.expanded .publisher-body { display: block; }
+    .publisher-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .headlines { margin-bottom: 8px; }
+    .headline {
+      font-size: 13px;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border-color, #e0e0e0);
+      cursor: pointer;
+    }
+    .headline:last-child { border-bottom: none; }
+    .headline:hover { color: var(--bar-color); }
+    .headline-date { font-size: 11px; color: #888; margin-left: 8px; }
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .category {
+      font-size: 11px;
+      padding: 2px 8px;
+      background: var(--hover-bg, #f0f0f0);
+      border-radius: 4px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="title" id="title"></div>
+      <div class="subtitle" id="period"></div>
+      <div class="stats">
+        <span>총 기사: <span class="stat-value" id="totalCount"></span></span>
+        <span>언론사: <span class="stat-value" id="pubCount"></span></span>
+      </div>
+    </div>
+    <div class="chart-section">
+      <div class="chart-title">언론사별 기사 수</div>
+      <div class="bar-chart" id="chart"></div>
+    </div>
+    <div class="publishers" id="publishers"></div>
+  </div>
+
+  <script>
+    (function() {
+      const { toolOutput, theme } = window.openai || {};
+      document.body.classList.add(theme === 'dark' ? 'dark' : 'light');
+
+      const data = toolOutput?._meta?.full_data || toolOutput?.structuredContent || {};
+      const publishers = data.publishers || [];
+      const keyword = data.keyword || '';
+      const startDate = data.start_date || '';
+      const endDate = data.end_date || '';
+      const totalArticles = data.total_articles || 0;
+
+      document.getElementById('title').textContent = `"${keyword}" 언론사별 보도 비교`;
+      document.getElementById('period').textContent = `${startDate} ~ ${endDate}`;
+      document.getElementById('totalCount').textContent = totalArticles.toLocaleString() + '건';
+      document.getElementById('pubCount').textContent = publishers.length + '개';
+
+      if (publishers.length === 0) {
+        document.getElementById('chart').innerHTML = '<p style="text-align:center;color:#666;">데이터가 없습니다.</p>';
+        return;
+      }
+
+      const maxCount = Math.max(...publishers.map(p => p.count));
+
+      // Render bar chart
+      const chartContainer = document.getElementById('chart');
+      chartContainer.innerHTML = publishers.slice(0, 10).map((pub, i) => {
+        const widthPercent = maxCount > 0 ? (pub.count / maxCount) * 100 : 0;
+        const isTop = i === 0;
+        return `
+          <div class="bar-row">
+            <div class="bar-label" title="${escapeHtml(pub.name)}">${escapeHtml(pub.name)}</div>
+            <div class="bar-track">
+              <div class="bar-fill ${isTop ? 'top' : ''}" style="width: ${widthPercent}%"></div>
+            </div>
+            <div class="bar-count">${pub.count}건</div>
+          </div>
+        `;
+      }).join('');
+
+      // Render publisher cards
+      const pubContainer = document.getElementById('publishers');
+      pubContainer.innerHTML = publishers.map((pub, i) => {
+        const isTop = i === 0;
+        return `
+          <div class="publisher ${isTop ? 'top' : ''}" onclick="togglePublisher(this)">
+            <div class="publisher-header">
+              <span class="publisher-name">${escapeHtml(pub.name)}</span>
+              <span class="publisher-count">${pub.count}건</span>
+            </div>
+            <div class="publisher-body">
+              <div class="publisher-meta">
+                <span>기간: ${pub.first_date || '-'} ~ ${pub.last_date || '-'}</span>
+              </div>
+              <div class="headlines">
+                ${(pub.headlines || []).map(h => `
+                  <div class="headline" onclick="event.stopPropagation(); searchHeadline('${escapeAttr(h.title)}')">
+                    ${escapeHtml(h.title)}
+                    <span class="headline-date">${h.date || ''}</span>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="categories">
+                ${(pub.categories || []).map(c => `
+                  <span class="category">${escapeHtml(c.name)} (${c.count})</span>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Expand first publisher by default
+      const firstPub = pubContainer.querySelector('.publisher');
+      if (firstPub) firstPub.classList.add('expanded');
+
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text || '';
+        return div.innerHTML;
+      }
+
+      function escapeAttr(text) {
+        return (text || '').replace(/'/g, "\\'").replace(/"/g, '\\"');
+      }
+
+      window.togglePublisher = function(el) {
+        el.classList.toggle('expanded');
+        notifyHeight();
+      };
+
+      window.searchHeadline = function(title) {
+        if (window.openai?.sendFollowUpMessage) {
+          window.openai.sendFollowUpMessage(`"${title}" 기사 상세 보여줘`);
+        }
+      };
+
+      function notifyHeight() {
+        if (window.openai?.notifyIntrinsicHeight) {
+          requestAnimationFrame(() => {
+            window.openai.notifyIntrinsicHeight(document.body.scrollHeight);
+          });
+        }
+      }
+
+      // Notify host of intrinsic height for proper sizing
+      notifyHeight();
+    })();
+  </script>
+</body>
+</html>

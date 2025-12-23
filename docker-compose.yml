@@ -1,0 +1,33 @@
+# Deep News OAI - Docker Compose Configuration
+# Deploy to existing server: 100.114.192.51
+# Port: 58003 (bigkinds-mcp uses 58002)
+# URL: deepnews.seolcoding.com (via Cloudflare Tunnel)
+
+services:
+  deep-news-oai:
+    build: .
+    container_name: deep-news-oai
+    ports:
+      - "58003:8000"
+    environment:
+      - BIGKINDS_USER_ID=${BIGKINDS_USER_ID}
+      - BIGKINDS_USER_PASSWORD=${BIGKINDS_USER_PASSWORD}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import httpx; httpx.get('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# Network configuration (optional, for multi-service setup)
+networks:
+  default:
+    name: mcp-network
+    external: true

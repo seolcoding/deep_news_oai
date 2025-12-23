@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+      color: var(--text-color, #1a1a1a);
+      background: var(--bg-color, #ffffff);
+      padding: 16px;
+    }
+    .dark {
+      --text-color: #e5e5e5;
+      --bg-color: #1a1a1a;
+      --border-color: #333;
+      --hover-bg: #2a2a2a;
+      --card-bg: #242424;
+      --accent: #4a9eff;
+      --accent-light: #1a3a5c;
+      --danger: #ff6b6b;
+      --success: #51cf66;
+    }
+    .light {
+      --text-color: #1a1a1a;
+      --bg-color: #ffffff;
+      --border-color: #e0e0e0;
+      --hover-bg: #f5f5f5;
+      --card-bg: #f8f9fa;
+      --accent: #0066cc;
+      --accent-light: #e6f0ff;
+      --danger: #e63946;
+      --success: #2d9b4e;
+    }
+
+    /* Header */
+    .report-header {
+      background: linear-gradient(135deg, var(--accent) 0%, #004499 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .report-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .report-period { font-size: 14px; opacity: 0.9; }
+    .report-stats {
+      display: flex;
+      gap: 20px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .stat-box {
+      background: rgba(255,255,255,0.15);
+      padding: 8px 14px;
+      border-radius: 8px;
+    }
+    .stat-value { font-size: 20px; font-weight: 700; }
+    .stat-label { font-size: 11px; opacity: 0.8; }
+
+    /* Section */
+    .section {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent);
+    }
+
+    /* Images Gallery */
+    .images-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .image-card {
+      position: relative;
+      aspect-ratio: 16/10;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--border-color);
+    }
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      padding: 20px 8px 6px;
+      color: white;
+      font-size: 10px;
+    }
+    .no-images {
+      grid-column: 1/-1;
+      text-align: center;
+      padding: 20px;
+      color: #888;
+      font-size: 13px;
+    }
+
+    /* Timeline Chart (SVG) */
+    .chart-container { padding: 8px 0; }
+    .chart-svg { width: 100%; height: 80px; }
+    .chart-bar {
+      fill: var(--accent);
+      transition: opacity 0.15s;
+      cursor: pointer;
+    }
+    .chart-bar:hover { opacity: 0.7; }
+    .chart-bar.peak { fill: var(--danger); }
+    .chart-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    /* Publishers */
+    .publisher-bars { display: flex; flex-direction: column; gap: 6px; }
+    .pub-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pub-rank {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pub-rank.top { background: var(--danger); }
+    .pub-name {
+      width: 70px;
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pub-bar-track {
+      flex: 1;
+      height: 16px;
+      background: var(--border-color);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .pub-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 6px;
+      font-size: 10px;
+      color: white;
+      font-weight: 600;
+    }
+    .pub-row:first-child .pub-bar-fill {
+      background: linear-gradient(90deg, var(--danger), #ff9999);
+    }
+
+    /* Key Events */
+    .events-list { display: flex; flex-direction: column; gap: 8px; }
+    .event-item {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      background: var(--hover-bg);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .event-item:hover { transform: translateX(4px); }
+    .event-item.peak { border-left-color: var(--danger); }
+    .event-date {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      min-width: 80px;
+    }
+    .event-item.peak .event-date { color: var(--danger); }
+    .event-content { flex: 1; }
+    .event-headline {
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .event-meta {
+      font-size: 11px;
+      color: #888;
+      margin-top: 2px;
+    }
+    .event-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--success);
+      color: white;
+    }
+    .event-item.peak .event-badge { background: var(--danger); }
+
+    /* Action Button */
+    .action-section {
+      background: linear-gradient(135deg, var(--accent-light) 0%, var(--card-bg) 100%);
+      border: 1px dashed var(--accent);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .action-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+    }
+    .action-desc {
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    (function() {
+      const { toolOutput, theme } = window.openai || {};
+      document.body.classList.add(theme === 'dark' ? 'dark' : 'light');
+
+      const data = toolOutput?._meta?.full_data || toolOutput?.structuredContent || {};
+      const { keyword, start_date, end_date, summary, timeline, publishers, key_events, images } = data;
+
+      const app = document.getElementById('app');
+
+      // ========== Header ==========
+      app.innerHTML = `
+        <div class="report-header">
+          <div class="report-title">📊 "${escapeHtml(keyword || '')}" 심층 분석</div>
+          <div class="report-period">${start_date || ''} ~ ${end_date || ''}</div>
+          <div class="report-stats">
+            <div class="stat-box">
+              <div class="stat-value">${(summary?.total_articles || 0).toLocaleString()}</div>
+              <div class="stat-label">총 기사</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">${summary?.publisher_count || 0}</div>
+              <div class="stat-label">언론사</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">${summary?.peak_count || 0}</div>
+              <div class="stat-label">피크 (${summary?.peak_date || '-'})</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">${summary?.avg_daily || 0}</div>
+              <div class="stat-label">일평균</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Images Gallery -->
+        <div class="section">
+          <div class="section-title">🖼️ 관련 이미지</div>
+          <div class="images-gallery" id="gallery"></div>
+        </div>
+
+        <!-- Timeline Chart -->
+        <div class="section">
+          <div class="section-title">📈 보도량 추이</div>
+          <div class="chart-container">
+            <svg class="chart-svg" id="timelineChart"></svg>
+            <div class="chart-labels" id="chartLabels"></div>
+          </div>
+        </div>
+
+        <!-- Publishers -->
+        <div class="section">
+          <div class="section-title">🏢 언론사별 보도</div>
+          <div class="publisher-bars" id="publishers"></div>
+        </div>
+
+        <!-- Key Events -->
+        <div class="section">
+          <div class="section-title">⚡ 주요 이벤트</div>
+          <div class="events-list" id="events"></div>
+        </div>
+
+        <!-- Action Button -->
+        <div class="action-section">
+          <button class="action-btn" onclick="generateInfographic()">
+            🎨 인포그래픽 생성 요청
+          </button>
+          <div class="action-desc">ChatGPT가 이 리포트를 바탕으로 시각적 인포그래픽을 생성합니다</div>
+        </div>
+      `;
+
+      // ========== Render Images ==========
+      const gallery = document.getElementById('gallery');
+      if (images && images.length > 0) {
+        gallery.innerHTML = images.map(img => `
+          <div class="image-card">
+            <img src="${escapeHtml(img.url)}" alt="${escapeHtml(img.title)}" onerror="this.parentElement.style.display='none'">
+            <div class="image-overlay">${escapeHtml(img.publisher || '')}</div>
+          </div>
+        `).join('');
+      } else {
+        gallery.innerHTML = '<div class="no-images">관련 이미지가 없습니다</div>';
+      }
+
+      // ========== Render Timeline SVG ==========
+      const chart = document.getElementById('timelineChart');
+      const labels = document.getElementById('chartLabels');
+      if (timeline && timeline.length > 0) {
+        const maxCount = Math.max(...timeline.map(t => t.count));
+        const barWidth = 100 / timeline.length;
+        const peakDate = summary?.peak_date;
+
+        let bars = '';
+        timeline.forEach((t, i) => {
+          const height = maxCount > 0 ? (t.count / maxCount) * 70 : 0;
+          const x = i * barWidth + barWidth * 0.1;
+          const width = barWidth * 0.8;
+          const isPeak = t.date === peakDate;
+          bars += `<rect class="chart-bar ${isPeak ? 'peak' : ''}"
+                        x="${x}%" y="${80 - height}"
+                        width="${width}%" height="${height}"
+                        rx="2"
+                        onclick="searchDate('${t.date}')">
+                    <title>${t.date}: ${t.count}건</title>
+                  </rect>`;
+        });
+        chart.innerHTML = bars;
+
+        // Labels (show first, middle, last)
+        const first = timeline[0]?.date?.slice(5) || '';
+        const last = timeline[timeline.length-1]?.date?.slice(5) || '';
+        labels.innerHTML = `<span>${first}</span><span>${last}</span>`;
+      }
+
+      // ========== Render Publishers ==========
+      const pubContainer = document.getElementById('publishers');
+      if (publishers && publishers.length > 0) {
+        const maxPub = publishers[0]?.count || 1;
+        pubContainer.innerHTML = publishers.slice(0, 5).map((p, i) => {
+          const width = (p.count / maxPub) * 100;
+          return `
+            <div class="pub-row" onclick="searchPublisher('${escapeAttr(p.name)}')">
+              <div class="pub-rank ${i === 0 ? 'top' : ''}">${i + 1}</div>
+              <div class="pub-name" title="${escapeHtml(p.name)}">${escapeHtml(p.name)}</div>
+              <div class="pub-bar-track">
+                <div class="pub-bar-fill" style="width: ${width}%">${p.count}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // ========== Render Events ==========
+      const eventsContainer = document.getElementById('events');
+      if (key_events && key_events.length > 0) {
+        eventsContainer.innerHTML = key_events.map(e => `
+          <div class="event-item ${e.is_peak ? 'peak' : ''}" onclick="searchDate('${e.date}')">
+            <div class="event-date">${e.date}</div>
+            <div class="event-content">
+              <div class="event-headline">${escapeHtml(e.headline || '헤드라인 없음')}</div>
+              <div class="event-meta">
+                ${e.count}건
+                <span class="event-badge">${e.is_peak ? '🔥 PEAK' : e.growth}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        eventsContainer.innerHTML = '<div style="text-align:center;color:#888;font-size:12px;">주요 이벤트가 없습니다</div>';
+      }
+
+      // ========== Functions ==========
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text || '';
+        return div.innerHTML;
+      }
+
+      function escapeAttr(text) {
+        return (text || '').replace(/'/g, "\\'").replace(/"/g, '\\"');
+      }
+
+      window.searchDate = function(date) {
+        if (window.openai?.sendFollowUpMessage) {
+          window.openai.sendFollowUpMessage(`"${keyword}" ${date} 뉴스 자세히 보여줘`);
+        }
+      };
+
+      window.searchPublisher = function(pub) {
+        if (window.openai?.sendFollowUpMessage) {
+          window.openai.sendFollowUpMessage(`"${keyword}" ${pub} 보도 보여줘`);
+        }
+      };
+
+      window.generateInfographic = function() {
+        if (window.openai?.sendFollowUpMessage) {
+          const prompt = `위 "${keyword}" 분석 리포트를 바탕으로 한국어 인포그래픽 이미지를 생성해줘.
+주요 내용:
+- 총 ${summary?.total_articles || 0}건 기사, ${summary?.publisher_count || 0}개 언론사
+- 피크: ${summary?.peak_date || '없음'} (${summary?.peak_count || 0}건)
+- 주요 언론사: ${publishers?.slice(0,3).map(p => p.name).join(', ') || '없음'}
+스타일: 뉴스 분석 인포그래픽, 차트와 아이콘 포함, 한국어`;
+          window.openai.sendFollowUpMessage(prompt);
+        }
+      };
+
+      // Notify host of intrinsic height
+      if (window.openai?.notifyIntrinsicHeight) {
+        requestAnimationFrame(() => {
+          window.openai.notifyIntrinsicHeight(document.body.scrollHeight);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

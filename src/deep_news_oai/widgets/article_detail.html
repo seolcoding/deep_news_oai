@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color, #1a1a1a);
+      background: var(--bg-color, #ffffff);
+      padding: 16px;
+    }
+    .dark { --text-color: #e5e5e5; --bg-color: #1a1a1a; --border-color: #333; }
+    .light { --text-color: #1a1a1a; --bg-color: #ffffff; --border-color: #e0e0e0; }
+
+    .article-header {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color, #e0e0e0);
+    }
+    .article-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .article-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: #666;
+    }
+    .meta-item { display: flex; align-items: center; gap: 4px; }
+
+    .article-content {
+      font-size: 15px;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .article-footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color, #e0e0e0);
+    }
+    .source-link {
+      display: inline-block;
+      padding: 10px 16px;
+      background: #0066cc;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .source-link:hover { background: #0055aa; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="article-header">
+      <h1 class="article-title" id="title">로딩 중...</h1>
+      <div class="article-meta">
+        <span class="meta-item" id="publisher"></span>
+        <span class="meta-item" id="date"></span>
+        <span class="meta-item" id="author"></span>
+      </div>
+    </div>
+    <div class="article-content" id="content"></div>
+    <div class="article-footer">
+      <a class="source-link" id="sourceLink" href="#" target="_blank">원문 보기</a>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const { toolOutput, theme } = window.openai || {};
+      document.body.classList.add(theme === 'dark' ? 'dark' : 'light');
+
+      const data = toolOutput?._meta?.full_data || toolOutput?.structuredContent || {};
+
+      document.getElementById('title').textContent = data.title || '제목 없음';
+      document.getElementById('publisher').textContent = data.publisher || '';
+      document.getElementById('date').textContent = formatDate(data.published_date);
+      document.getElementById('author').textContent = data.author ? `by ${data.author}` : '';
+      document.getElementById('content').textContent = data.content || data.summary || '본문이 없습니다.';
+
+      const sourceLink = document.getElementById('sourceLink');
+      if (data.url) {
+        sourceLink.href = data.url;
+        sourceLink.onclick = function(e) {
+          e.preventDefault();
+          if (window.openai?.openExternal) {
+            window.openai.openExternal(data.url);
+          } else {
+            window.open(data.url, '_blank');
+          }
+        };
+      } else {
+        sourceLink.style.display = 'none';
+      }
+
+      function formatDate(dateStr) {
+        if (!dateStr) return '';
+        try {
+          const d = new Date(dateStr);
+          return d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+        } catch {
+          return dateStr.substring(0, 10);
+        }
+      }
+
+      // Notify host of intrinsic height for proper sizing
+      if (window.openai?.notifyIntrinsicHeight) {
+        requestAnimationFrame(() => {
+          const height = document.body.scrollHeight;
+          window.openai.notifyIntrinsicHeight(height);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

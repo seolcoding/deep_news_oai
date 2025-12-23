@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+      color: var(--text-color, #1a1a1a);
+      background: var(--bg-color, #ffffff);
+      padding: 16px;
+    }
+    .dark { --text-color: #e5e5e5; --bg-color: #1a1a1a; --border-color: #333; --hover-bg: #2a2a2a; --bar-color: #4a9eff; }
+    .light { --text-color: #1a1a1a; --bg-color: #ffffff; --border-color: #e0e0e0; --hover-bg: #f5f5f5; --bar-color: #0066cc; }
+
+    .header {
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color, #e0e0e0);
+    }
+    .title { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+    .subtitle { font-size: 14px; color: #666; }
+    .stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+    .stat { display: flex; align-items: center; gap: 4px; }
+    .stat-value { font-weight: 600; color: var(--bar-color); }
+
+    .chart-container {
+      margin-bottom: 16px;
+      padding: 12px;
+      background: var(--hover-bg, #f5f5f5);
+      border-radius: 8px;
+    }
+    .chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 100px;
+      padding-top: 8px;
+    }
+    .bar-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 0;
+    }
+    .bar {
+      width: 100%;
+      max-width: 24px;
+      background: var(--bar-color, #0066cc);
+      border-radius: 2px 2px 0 0;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      position: relative;
+    }
+    .bar:hover { opacity: 0.8; }
+    .bar.peak { background: #e63946; }
+    .bar-label {
+      font-size: 9px;
+      color: #888;
+      margin-top: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .timeline-list { display: flex; flex-direction: column; gap: 8px; }
+    .timeline-item {
+      display: flex;
+      gap: 12px;
+      padding: 10px;
+      border: 1px solid var(--border-color, #e0e0e0);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .timeline-item:hover { background: var(--hover-bg, #f5f5f5); }
+    .timeline-item.peak { border-left: 3px solid #e63946; }
+
+    .date-col {
+      flex-shrink: 0;
+      width: 80px;
+      text-align: center;
+    }
+    .date-text { font-size: 13px; font-weight: 500; }
+    .count-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--bar-color, #0066cc);
+      color: white;
+      border-radius: 12px;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    .timeline-item.peak .count-badge { background: #e63946; }
+
+    .content-col { flex: 1; min-width: 0; }
+    .headlines {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .headline {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text-color);
+    }
+    .publishers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .publisher {
+      font-size: 11px;
+      padding: 1px 6px;
+      background: var(--hover-bg, #f0f0f0);
+      border-radius: 3px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="title" id="title"></div>
+      <div class="subtitle" id="period"></div>
+      <div class="stats">
+        <div class="stat">총 기사: <span class="stat-value" id="totalCount"></span></div>
+        <div class="stat">피크: <span class="stat-value" id="peakInfo"></span></div>
+      </div>
+    </div>
+    <div class="chart-container">
+      <div class="chart" id="chart"></div>
+    </div>
+    <div class="timeline-list" id="timeline"></div>
+  </div>
+
+  <script>
+    (function() {
+      const { toolOutput, theme } = window.openai || {};
+      document.body.classList.add(theme === 'dark' ? 'dark' : 'light');
+
+      const data = toolOutput?._meta?.full_data || toolOutput?.structuredContent || {};
+      const timeline = data.timeline || [];
+      const keyword = data.keyword || '';
+      const startDate = data.start_date || '';
+      const endDate = data.end_date || '';
+      const totalArticles = data.total_articles || 0;
+
+      document.getElementById('title').textContent = `"${keyword}" 타임라인`;
+      document.getElementById('period').textContent = `${startDate} ~ ${endDate}`;
+      document.getElementById('totalCount').textContent = totalArticles.toLocaleString() + '건';
+
+      if (timeline.length === 0) {
+        document.getElementById('chart').innerHTML = '<p style="text-align:center;color:#666;width:100%;">데이터가 없습니다.</p>';
+        document.getElementById('timeline').innerHTML = '';
+        return;
+      }
+
+      // Find peak
+      const maxCount = Math.max(...timeline.map(t => t.count));
+      const peakItem = timeline.find(t => t.count === maxCount);
+      document.getElementById('peakInfo').textContent = peakItem ? `${peakItem.date} (${peakItem.count}건)` : '-';
+
+      // Render chart (limit to 30 bars for readability)
+      const chartData = timeline.length > 30 ? timeline.slice(-30) : timeline;
+      const chartContainer = document.getElementById('chart');
+
+      chartContainer.innerHTML = chartData.map((item, i) => {
+        const heightPercent = maxCount > 0 ? (item.count / maxCount) * 100 : 0;
+        const isPeak = item.count === maxCount;
+        const label = item.date.length > 7 ? item.date.slice(5) : item.date; // MM-DD or YYYY-MM
+        return `
+          <div class="bar-wrapper" onclick="showDate('${item.date}')">
+            <div class="bar ${isPeak ? 'peak' : ''}" style="height: ${Math.max(heightPercent, 3)}%" title="${item.date}: ${item.count}건"></div>
+            <div class="bar-label">${i % Math.ceil(chartData.length / 10) === 0 ? label : ''}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Render timeline list (top 10 by count)
+      const topItems = [...timeline].sort((a, b) => b.count - a.count).slice(0, 10);
+      const timelineContainer = document.getElementById('timeline');
+
+      timelineContainer.innerHTML = topItems.map(item => {
+        const isPeak = item.count === maxCount;
+        return `
+          <div class="timeline-item ${isPeak ? 'peak' : ''}" onclick="searchDate('${keyword}', '${item.date}')">
+            <div class="date-col">
+              <div class="date-text">${item.date}</div>
+              <div class="count-badge">${item.count}건</div>
+            </div>
+            <div class="content-col">
+              <div class="headlines">
+                ${(item.headlines || []).slice(0, 2).map(h => `<div class="headline">${escapeHtml(h)}</div>`).join('')}
+              </div>
+              <div class="publishers">
+                ${(item.publishers || []).map(p => `<span class="publisher">${escapeHtml(p.name)} (${p.count})</span>`).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text || '';
+        return div.innerHTML;
+      }
+
+      window.showDate = function(date) {
+        const item = timeline.find(t => t.date === date);
+        if (item && item.headlines && item.headlines[0]) {
+          window.searchDate(keyword, date);
+        }
+      };
+
+      window.searchDate = function(kw, date) {
+        if (window.openai?.sendFollowUpMessage) {
+          window.openai.sendFollowUpMessage(`"${kw}" ${date} 뉴스 검색해줘`);
+        }
+      };
+
+      // Notify host of intrinsic height for proper sizing
+      if (window.openai?.notifyIntrinsicHeight) {
+        requestAnimationFrame(() => {
+          const height = document.body.scrollHeight;
+          window.openai.notifyIntrinsicHeight(height);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

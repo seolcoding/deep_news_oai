@@ -1,0 +1,26 @@
+# Cloudflare Tunnel Configuration Example
+# Add this to your existing cloudflared config.yml
+#
+# File location (Linux): /etc/cloudflared/config.yml
+# File location (macOS): ~/.cloudflared/config.yml
+
+# tunnel: <YOUR_TUNNEL_ID>
+# credentials-file: /etc/cloudflared/<YOUR_TUNNEL_ID>.json
+
+ingress:
+  # Existing bigkinds-mcp
+  - hostname: bigkinds.seolcoding.com
+    service: http://localhost:58002
+
+  # NEW: Deep News OAI (OpenAI ChatGPT App)
+  - hostname: deepnews-oai.seolcoding.com
+    service: http://localhost:58003
+
+  # Catch-all (required)
+  - service: http_status:404
+
+# After editing, restart cloudflared:
+#   sudo systemctl restart cloudflared
+#
+# Or if running manually:
+#   cloudflared tunnel run <TUNNEL_NAME>

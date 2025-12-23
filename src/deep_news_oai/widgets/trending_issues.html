@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.5;
+      color: var(--text-color, #1a1a1a);
+      background: var(--bg-color, #ffffff);
+      padding: 16px;
+    }
+    .dark { --text-color: #e5e5e5; --bg-color: #1a1a1a; --border-color: #333; --hover-bg: #2a2a2a; }
+    .light { --text-color: #1a1a1a; --bg-color: #ffffff; --border-color: #e0e0e0; --hover-bg: #f5f5f5; }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color, #e0e0e0);
+    }
+    .title { font-size: 18px; font-weight: 600; }
+    .date { font-size: 14px; color: #666; }
+
+    .issues { display: flex; flex-direction: column; gap: 10px; }
+    .issue {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border-color, #e0e0e0);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .issue:hover { background: var(--hover-bg, #f5f5f5); }
+
+    .rank {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0066cc;
+      color: white;
+      border-radius: 50%;
+      font-size: 14px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .rank.top3 { background: #e63946; }
+
+    .issue-content { flex: 1; }
+    .issue-title { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+    .keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .keyword {
+      padding: 2px 8px;
+      background: var(--hover-bg, #f0f0f0);
+      border-radius: 4px;
+      font-size: 12px;
+      color: #666;
+    }
+    .meta {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+      font-size: 12px;
+      color: #888;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .meta-item.volume { color: #0066cc; }
+    .meta-item.growth { color: #28a745; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <div class="title">오늘의 인기 이슈</div>
+      <div class="date" id="date"></div>
+    </div>
+    <div class="issues" id="issues"></div>
+  </div>
+
+  <script>
+    (function() {
+      const { toolOutput, theme } = window.openai || {};
+      document.body.classList.add(theme === 'dark' ? 'dark' : 'light');
+
+      const data = toolOutput?._meta?.full_data || toolOutput?.structuredContent || {};
+      const issues = data.issues || [];
+      const date = data.date || '';
+
+      document.getElementById('date').textContent = date;
+
+      const issuesContainer = document.getElementById('issues');
+      if (issues.length === 0) {
+        issuesContainer.innerHTML = '<p style="text-align:center;color:#666;">이슈가 없습니다.</p>';
+      } else {
+        issuesContainer.innerHTML = issues.map((issue, i) => `
+          <div class="issue" onclick="searchIssue('${escapeAttr(issue.title)}')">
+            <div class="rank ${i < 3 ? 'top3' : ''}">${issue.rank || i + 1}</div>
+            <div class="issue-content">
+              <div class="issue-title">${escapeHtml(issue.title || '')}</div>
+              <div class="keywords">
+                ${(issue.keywords || []).slice(0, 5).map(k =>
+                  `<span class="keyword">${escapeHtml(k)}</span>`
+                ).join('')}
+              </div>
+              ${(issue.search_volume || issue.growth_rate) ? `
+              <div class="meta">
+                ${issue.search_volume ? `<span class="meta-item volume">검색량: ${escapeHtml(issue.search_volume)}</span>` : ''}
+                ${issue.growth_rate ? `<span class="meta-item growth">${escapeHtml(issue.growth_rate)}</span>` : ''}
+              </div>
+              ` : ''}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function escapeAttr(text) {
+        return (text || '').replace(/'/g, "\\'");
+      }
+
+      window.searchIssue = function(issueTitle) {
+        if (window.openai?.sendFollowUpMessage) {
+          window.openai.sendFollowUpMessage(`"${issueTitle}" 관련 뉴스 검색해줘`);
+        }
+      };
+
+      // Notify host of intrinsic height for proper sizing
+      if (window.openai?.notifyIntrinsicHeight) {
+        requestAnimationFrame(() => {
+          const height = document.body.scrollHeight;
+          window.openai.notifyIntrinsicHeight(height);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
