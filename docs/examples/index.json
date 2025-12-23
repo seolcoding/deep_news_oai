@@ -1,0 +1,67 @@
+{
+  "title": "Deep News OAI - API Response Examples",
+  "generated_at": "2025-12-23T13:51:46.229309",
+  "total_examples": 10,
+  "examples": [
+    {
+      "id": 1,
+      "name": "trending_keywords",
+      "prompt": "오늘 실시간 트렌딩 키워드 알려줘",
+      "file": "trending_keywords.json"
+    },
+    {
+      "id": 2,
+      "name": "search_company",
+      "prompt": "삼성전자 최근 뉴스 검색해줘",
+      "file": "search_company.json"
+    },
+    {
+      "id": 3,
+      "name": "search_person",
+      "prompt": "이재명 관련 최근 뉴스 보여줘",
+      "file": "search_person.json"
+    },
+    {
+      "id": 4,
+      "name": "article_detail",
+      "prompt": "기사 01600451.20251223134747001 상세 내용 보여줘",
+      "file": "article_detail.json"
+    },
+    {
+      "id": 5,
+      "name": "timeline_ai",
+      "prompt": "AI 관련 뉴스 타임라인 분석해줘",
+      "file": "timeline_ai.json"
+    },
+    {
+      "id": 6,
+      "name": "perspectives_politics",
+      "prompt": "탄핵 관련 언론사별 보도 비교해줘",
+      "file": "perspectives_politics.json"
+    },
+    {
+      "id": 7,
+      "name": "report_semiconductor",
+      "prompt": "반도체 뉴스 심층 분석 리포트 만들어줘",
+      "file": "report_semiconductor.json"
+    },
+    {
+      "id": 8,
+      "name": "count_articles",
+      "prompt": "윤석열, 이재명, 한동훈 각각 최근 한달 기사 몇 건이야?",
+      "file": "count_articles.json"
+    },
+    {
+      "id": 9,
+      "name": "trending_deep_search",
+      "prompt": "지금 가장 핫한 키워드로 뉴스 검색해줘",
+      "file": "trending_deep_search.json"
+    },
+    {
+      "id": 10,
+      "name": "economic_analysis",
+      "prompt": "환율, 주식, 부동산, 금리 관련 경제 뉴스 종합 분석해줘",
+      "file": "economic_analysis.json"
+    }
+  ]
+}

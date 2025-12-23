@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>💹 경제 뉴스 대시보드</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background: #1a1a2e;
+            min-height: 100vh;
+            padding: 40px;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .metric-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: white;
+        }
+        .icon { font-size: 3rem; margin-bottom: 15px; }
+        .metric-name {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 10px 0 20px;
+        }
+        .headlines {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+        .hl {
+            font-size: 0.85rem;
+            color: #aaa;
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>💹 경제 뉴스 대시보드</h1>
+        <p style="color: #888; margin-top: 10px">2025-12-16 ~ 2025-12-23</p>
+    </div>
+    <div class="dashboard">
+        <div class="metric-card" style="--accent: #ff6b6b">
+            <div class="icon">💱</div>
+            <div class="metric-name">환율</div>
+            <div class="metric-value">2,258건</div>
+            <div class="headlines">
+                <div class="hl">• [영상PICK] 환율 1480원 뚫렸다…정부, 국민연금까지 동원...</div><div class="hl">• 내년 1분기 수출경기 개선 전망…반도체·선박 중심 호조세...</div><div class="hl">• 고환율·고물가 속 '시장 교란 탈세' 정조준…대구·경북 지역 경...</div>
+            </div>
+        </div>
+        
+        <div class="metric-card" style="--accent: #4ecdc4">
+            <div class="icon">📈</div>
+            <div class="metric-name">주식</div>
+            <div class="metric-value">2,743건</div>
+            <div class="headlines">
+                <div class="hl">• 금오공대와 수학프로젝트 진행한 지역 고교생들, 최우수상 받아...</div><div class="hl">• 아이엘, 전환사채 상환·소각…"오버행 요인 선제적 해소"...</div><div class="hl">• '계엄령 놀이' 공무원 갑질 알고도 뭉갠 양양군...과태료는 고...</div>
+            </div>
+        </div>
+        
+        <div class="metric-card" style="--accent: #45b7d1">
+            <div class="icon">🏠</div>
+            <div class="metric-name">부동산</div>
+            <div class="metric-value">3,005건</div>
+            <div class="headlines">
+                <div class="hl">• 내란 겪은 한국인, 경제성장 보다 ‘민주주의 성숙’ 원한다...</div><div class="hl">• 부천·분당 등 1기 신도시 전 구역에 패스트트랙 확대…6.3만 ...</div><div class="hl">• 30년 만에 바뀐 한국인 의식…"민주주의가 경제발전보다 중요"...</div>
+            </div>
+        </div>
+        
+        <div class="metric-card" style="--accent: #96ceb4">
+            <div class="icon">💰</div>
+            <div class="metric-name">금리</div>
+            <div class="metric-value">2,398건</div>
+            <div class="headlines">
+                <div class="hl">• IBK기업은행, 서민금융 상환자 대상 비대면 전용 신용 대출 상...</div><div class="hl">• 신복위 소액대출 공급 늘린다…은행 서금원 출연금도 확대...</div><div class="hl">• 월 0.4%대 업계 최저 금리로 저렴하게! 반대매매 위기도 당일...</div>
+            </div>
+        </div>
+        </div>
+</body>
+</html>

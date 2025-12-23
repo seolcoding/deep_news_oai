@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>🫧 이슈 버블 차트</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .header {
+            text-align: center;
+            padding: 40px;
+            color: white;
+        }
+        .header h1 { font-size: 2.5rem; }
+        .canvas {
+            position: relative;
+            width: 100%;
+            height: 700px;
+        }
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), rgba(255,255,255,0.05));
+            border: 2px solid rgba(255,255,255,0.2);
+            color: white;
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .bubble:hover {
+            transform: scale(1.1);
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+        }
+        .kw { font-size: 0.9rem; font-weight: 600; }
+        .cnt { font-size: 1.2rem; font-weight: 800; margin-top: 5px; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🫧 뉴스 이슈 버블 차트</h1>
+        <p style="color: #888; margin-top: 10px">버블 크기 = 기사 수</p>
+    </div>
+    <div class="canvas">
+        <div class="bubble" style="
+            width: 200.0px; 
+            height: 200.0px; 
+            left: 100px; 
+            top: 150px;
+            animation-delay: 0.0s;
+        ">
+            <span class="kw">AI</span>
+            <span class="cnt">16,028</span>
+        </div>
+        
+        <div class="bubble" style="
+            width: 199.47591714499626px; 
+            height: 199.47591714499626px; 
+            left: 320px; 
+            top: 150px;
+            animation-delay: 0.1s;
+        ">
+            <span class="kw">경제</span>
+            <span class="cnt">15,958</span>
+        </div>
+        
+        <div class="bubble" style="
+            width: 109.94759171449962px; 
+            height: 109.94759171449962px; 
+            left: 540px; 
+            top: 150px;
+            animation-delay: 0.2s;
+        ">
+            <span class="kw">반도체</span>
+            <span class="cnt">4,000</span>
+        </div>
+        
+        <div class="bubble" style="
+            width: 102.49812827551784px; 
+            height: 102.49812827551784px; 
+            left: 760px; 
+            top: 150px;
+            animation-delay: 0.30000000000000004s;
+        ">
+            <span class="kw">부동산</span>
+            <span class="cnt">3,005</span>
+        </div>
+        
+        <div class="bubble" style="
+            width: 97.95358123284252px; 
+            height: 97.95358123284252px; 
+            left: 150px; 
+            top: 350px;
+            animation-delay: 0.4s;
+        ">
+            <span class="kw">금리</span>
+            <span class="cnt">2,398</span>
+        </div>
+        
+        <div class="bubble" style="
+            width: 96.90541552283504px; 
+            height: 96.90541552283504px; 
+            left: 370px; 
+            top: 350px;
+            animation-delay: 0.5s;
+        ">
+            <span class="kw">환율</span>
+            <span class="cnt">2,258</span>
+        </div>
+        
+        <div class="bubble" style="
+            width: 95.70751185425505px; 
+            height: 95.70751185425505px; 
+            left: 590px; 
+            top: 350px;
+            animation-delay: 0.6000000000000001s;
+        ">
+            <span class="kw">삼성전자</span>
+            <span class="cnt">2,098</span>
+        </div>
+        
+        <div class="bubble" style="
+            width: 85.2333416521088px; 
+            height: 85.2333416521088px; 
+            left: 810px; 
+            top: 350px;
+            animation-delay: 0.7000000000000001s;
+        ">
+            <span class="kw">탄핵</span>
+            <span class="cnt">699</span>
+        </div>
+        </div>
+</body>
+</html>

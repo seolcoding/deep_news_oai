@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>📊 언론사 히트맵</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background: #0f0f1a;
+            min-height: 100vh;
+            padding: 40px;
+            color: white;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 { font-size: 2.5rem; }
+        .header .info { color: #888; margin-top: 10px; }
+        .heatmap {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .cell {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            transition: transform 0.3s;
+        }
+        .cell:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .pub-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .pub-count {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 언론사별 보도량 히트맵</h1>
+        <div class="info">"정치" | 2025-12-16 ~ 2025-12-23</div>
+    </div>
+    <div class="heatmap">
+        <div class="cell" style="background: rgba(255,0,0,1.0)">
+            <div class="pub-name">아시아경제</div>
+            <div class="pub-count">22건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(243,4,4,0.9681818181818183)">
+            <div class="pub-name">YTN</div>
+            <div class="pub-count">21건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(220,13,13,0.9045454545454545)">
+            <div class="pub-name">뉴스핌</div>
+            <div class="pub-count">19건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(220,13,13,0.9045454545454545)">
+            <div class="pub-name">중앙일보</div>
+            <div class="pub-count">19건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(197,22,22,0.8409090909090908)">
+            <div class="pub-name">동아일보</div>
+            <div class="pub-count">17건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(185,27,27,0.8090909090909091)">
+            <div class="pub-name">노컷뉴스</div>
+            <div class="pub-count">16건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(173,31,31,0.7772727272727271)">
+            <div class="pub-name">파이낸셜뉴스</div>
+            <div class="pub-count">15건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(173,31,31,0.7772727272727271)">
+            <div class="pub-name">한겨레</div>
+            <div class="pub-count">15건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(150,40,40,0.7136363636363636)">
+            <div class="pub-name">프레시안</div>
+            <div class="pub-count">13건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(150,40,40,0.7136363636363636)">
+            <div class="pub-name">서울경제</div>
+            <div class="pub-count">13건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(139,45,45,0.6818181818181818)">
+            <div class="pub-name">데일리안</div>
+            <div class="pub-count">12건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(139,45,45,0.6818181818181818)">
+            <div class="pub-name">세계일보</div>
+            <div class="pub-count">12건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(139,45,45,0.6818181818181818)">
+            <div class="pub-name">문화일보</div>
+            <div class="pub-count">12건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(127,50,50,0.6499999999999999)">
+            <div class="pub-name">이데일리</div>
+            <div class="pub-count">11건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(127,50,50,0.6499999999999999)">
+            <div class="pub-name">매일경제</div>
+            <div class="pub-count">11건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(127,50,50,0.6499999999999999)">
+            <div class="pub-name">머니투데이</div>
+            <div class="pub-count">11건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(127,50,50,0.6499999999999999)">
+            <div class="pub-name">아시아투데이</div>
+            <div class="pub-count">11건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(115,54,54,0.6181818181818182)">
+            <div class="pub-name">아주경제</div>
+            <div class="pub-count">10건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(115,54,54,0.6181818181818182)">
+            <div class="pub-name">한국경제</div>
+            <div class="pub-count">10건</div>
+        </div>
+        
+        <div class="cell" style="background: rgba(115,54,54,0.6181818181818182)">
+            <div class="pub-name">중도일보</div>
+            <div class="pub-count">10건</div>
+        </div>
+        </div>
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background: rgba(100,100,255,0.3)"></div>
+            <span>적음</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: rgba(255,100,100,1)"></div>
+            <span>많음</span>
+        </div>
+    </div>
+</body>
+</html>

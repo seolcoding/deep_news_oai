@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>📅 뉴스 타임라인</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+        .header h1 { font-size: 2.5rem; }
+        .header .keyword { 
+            font-size: 1.5rem; 
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: rgba(255,255,255,0.3);
+        }
+        .event {
+            position: relative;
+            width: 50%;
+            padding: 20px;
+        }
+        .event.left { left: 0; text-align: right; }
+        .event.right { left: 50%; text-align: left; }
+        .event::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 30px;
+        }
+        .event.left::before { right: -10px; }
+        .event.right::before { left: -10px; }
+        .event-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .date {
+            font-size: 0.9rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+        .count {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin: 10px 0;
+        }
+        .headline {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📅 뉴스 타임라인</h1>
+        <div class="keyword">"AI" 키워드 분석</div>
+    </div>
+    <div class="timeline">
+        <div class="event left">
+            <div class="event-content">
+                <div class="date">20251223</div>
+                <div class="count">300건</div>
+                <div class="headline">트럼프, 거액 기부자에 사면·공직 특혜 뿌리기···“명백한 이해충돌 있다”</div>
+            </div>
+        </div>
+        </div>
+</body>
+</html>

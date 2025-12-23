@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>🖥️ 실시간 뉴스 모니터</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff00;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #00ff00;
+            margin-bottom: 20px;
+        }
+        .header h1 { font-size: 1.5rem; }
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #00ff00;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-box {
+            border: 1px solid #00ff00;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-value { font-size: 2rem; font-weight: bold; }
+        .stat-label { font-size: 0.8rem; color: #008800; }
+        .feed {
+            border: 1px solid #00ff00;
+            height: 400px;
+            overflow-y: auto;
+        }
+        .feed-item {
+            display: grid;
+            grid-template-columns: 80px 100px 1fr;
+            gap: 15px;
+            padding: 12px 15px;
+            border-bottom: 1px solid #003300;
+        }
+        .feed-item:hover { background: #001100; }
+        .time { color: #888; }
+        .publisher { color: #ffff00; }
+        .title { color: #00ff00; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🖥️ REAL-TIME NEWS MONITOR</h1>
+        <div class="status">
+            <div class="status-dot"></div>
+            <span>LIVE</span>
+        </div>
+    </div>
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-value">32,868</div>
+            <div class="stat-label">TOTAL TODAY</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">20</div>
+            <div class="stat-label">LAST HOUR</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">10</div>
+            <div class="stat-label">PUBLISHERS</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value">10</div>
+            <div class="stat-label">TRENDING</div>
+        </div>
+    </div>
+    <div class="feed">
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">경기일보</div>
+            <div class="title">불빛 아래에서 쉬어가는 연말… 인천관광공사, ‘오픈 포트 크리스마스, 불멍’ 개최</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">대전일보</div>
+            <div class="title">보은청년회의소 제55주년 창립회장단 이 취임식</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">경향신문</div>
+            <div class="title">노동부, ‘직장 내 괴롭힘 관리 소홀’ 양양군청에 과태료 800만 원</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">경향신문</div>
+            <div class="title">내란 겪은 한국인, 경제성장 보다 ‘민주주의 성숙’ 원한다</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">메트로경제</div>
+            <div class="title">울릉군, ‘2025년 겨울빛 트리 점등식’ 성황리 개최</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">광남일보</div>
+            <div class="title">금호석유화학 여수공장, 장애인 ‘산타썰매단 사랑나눔’</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">광남일보</div>
+            <div class="title">여수경찰, 악성사기 범죄 예방 홍보 전개</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">광남일보</div>
+            <div class="title">"전공 일자리 부족"…지역 청년들, 광주 떠난다</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">스포츠월드</div>
+            <div class="title">백예슬, 이승철 ‘사랑 참 어렵다’ 리메이크곡 24일 공개</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">충청일보</div>
+            <div class="title">연말 식탁에 온기를 더한 물관리 현장의 연대</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">경향신문</div>
+            <div class="title">트럼프, 거액 기부자에 사면·공직 특혜 뿌리기···“명백한 이해충돌 있다”</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">뉴스핌</div>
+            <div class="title">신용보증기금-iM뱅크, 지역경제 활성화 위한 생산적 금융지원 '맞손'</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">서울신문</div>
+            <div class="title">김태수 서울시의회 주택공간위원장, ‘2025 서울시 건축사회 송년회’ 참석</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">뉴스핌</div>
+            <div class="title">'산타마주들의 기부릴레이' 서울마주협회, 요셉의원과 소외계층 의료지원 나서</div>
+        </div>
+        
+        <div class="feed-item">
+            <div class="time">00:00</div>
+            <div class="publisher">서울신문</div>
+            <div class="title">김대호, 집에서 시가 피우며 인증샷…실내 흡연에 “부적절” vs “문제없다”</div>
+        </div>
+        </div>
+</body>
+</html>

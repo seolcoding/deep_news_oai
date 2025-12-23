@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>📑 주간 뉴스 리포트</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background: #1a1a2e;
+            color: white;
+        }
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .slide:nth-child(odd) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .slide:nth-child(even) {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        h2 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+        }
+        .slide-content {
+            font-size: 1.5rem;
+            max-width: 800px;
+            line-height: 1.8;
+        }
+        .nav {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .nav-dot:hover { background: white; transform: scale(1.3); }
+    </style>
+</head>
+<body>
+    
+        <section class="slide" id="slide-1">
+            <h2>📊 이번 주 뉴스 하이라이트</h2>
+            <div class="slide-content">분석 기간: 2025-12-16 ~ 2025-12-23</div>
+        </section>
+        
+        <section class="slide" id="slide-2">
+            <h2>🔍 탄핵</h2>
+            <div class="slide-content">총 699건의 기사가 보도되었습니다.</div>
+        </section>
+        
+        <section class="slide" id="slide-3">
+            <h2>🔍 경제</h2>
+            <div class="slide-content">총 15,954건의 기사가 보도되었습니다.</div>
+        </section>
+        
+        <section class="slide" id="slide-4">
+            <h2>🔍 반도체</h2>
+            <div class="slide-content">총 4,000건의 기사가 보도되었습니다.</div>
+        </section>
+        
+        <section class="slide" id="slide-5">
+            <h2>🎯 결론</h2>
+            <div class="slide-content">정치·경제 이슈가 뉴스의 중심이었습니다.</div>
+        </section>
+        
+    <nav class="nav">
+        <a href="#slide-1" class="nav-dot"></a><a href="#slide-2" class="nav-dot"></a><a href="#slide-3" class="nav-dot"></a><a href="#slide-4" class="nav-dot"></a><a href="#slide-5" class="nav-dot"></a>
+    </nav>
+</body>
+</html>

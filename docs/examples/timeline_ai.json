@@ -1,0 +1,85 @@
+{
+  "prompt": "AI 관련 뉴스 타임라인 분석해줘",
+  "response": {
+    "structuredContent": {
+      "keyword": "AI 인공지능",
+      "period": "2025-12-09 ~ 2025-12-23",
+      "total_articles": 2425,
+      "data_points": 2,
+      "peak_date": "20251222",
+      "peak_count": 154
+    },
+    "content": "'AI 인공지능' 타임라인 분석: 2025-12-09 ~ 2025-12-23, 총 2,425건 (피크: 20251222 154건)",
+    "_meta": {
+      "openai/outputTemplate": "widget://timeline",
+      "openai/widgetCSP": [
+        "*.bigkinds.or.kr",
+        "*.chosun.com",
+        "*.donga.com",
+        "*.joongang.co.kr",
+        "*.hankyung.com",
+        "*.mk.co.kr",
+        "*.hani.co.kr",
+        "*.khan.co.kr",
+        "*.kbs.co.kr",
+        "*.sbs.co.kr",
+        "*.mbc.co.kr",
+        "*.yna.co.kr"
+      ],
+      "full_data": {
+        "keyword": "AI 인공지능",
+        "start_date": "2025-12-09",
+        "end_date": "2025-12-23",
+        "timeline": [
+          {
+            "date": "20251222",
+            "count": 154,
+            "publishers": [
+              {
+                "name": "헤럴드경제",
+                "count": 8
+              },
+              {
+                "name": "전자신문",
+                "count": 7
+              },
+              {
+                "name": "KBS",
+                "count": 6
+              }
+            ],
+            "headlines": [
+              "'천상영 체제' 신한라이프, 조직개편 단행…질적 성장 방점",
+              "카카오 AI 서비스 앞두고 약관부터 손봤다···이용자들 “개인정보 수집 과도하게 늘어날 것” 우려",
+              "안동시선관위, AI 이용 지자체장 찬양 노래 제작자 및 유포자 고발"
+            ]
+          },
+          {
+            "date": "20251223",
+            "count": 146,
+            "publishers": [
+              {
+                "name": "헤럴드경제",
+                "count": 14
+              },
+              {
+                "name": "뉴스핌",
+                "count": 12
+              },
+              {
+                "name": "전자신문",
+                "count": 11
+              }
+            ],
+            "headlines": [
+              "민주주의 성숙을 경제성장보다 더 희망하는 한국인…2025년 한국인의 의식·가치관 조사",
+              "공급망 컨트롤타워·제조 AX 전담 조직 신설…산업부 12년만 최대 조직개편",
+              "교육부, 수행평가 'AI 활용 관리방안' 마련…\"금지 아닌 안전한 활용 유도\""
+            ]
+          }
+        ],
+        "total_articles": 2425
+      }
+    }
+  }
+}

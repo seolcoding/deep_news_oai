@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>🔥 실시간 트렌딩 대시보드</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 40px;
+            color: #fff;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header .time {
+            color: #a0a0a0;
+            margin-top: 10px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .trend-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            animation: slideIn 0.5s ease calc(var(--rank) * 0.1s) backwards;
+        }
+        .trend-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .rank {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .keyword {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        .volume {
+            color: #48dbfb;
+            font-size: 0.9rem;
+        }
+        .tags {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tag {
+            background: rgba(255,255,255,0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔥 실시간 트렌딩 키워드</h1>
+        <div class="time">2025-12-23 14:12 기준</div>
+    </div>
+    <div class="grid">
+        <div class="trend-card" style="--rank: 1">
+            <div class="rank">#1</div>
+            <div class="keyword">정희원</div>
+            <div class="volume">2만+</div>
+            <div class="tags"><span class="tag">정희원 카톡</span> <span class="tag">정희원 논란</span> <span class="tag">장제원</span></div>
+        </div>
+        
+        <div class="trend-card" style="--rank: 2">
+            <div class="rank">#2</div>
+            <div class="keyword">대홍수</div>
+            <div class="volume">2만+</div>
+            <div class="tags"><span class="tag">대홍수 해석</span> <span class="tag">김다미</span> <span class="tag">김병우</span></div>
+        </div>
+        
+        <div class="trend-card" style="--rank: 3">
+            <div class="rank">#3</div>
+            <div class="keyword">신민아</div>
+            <div class="volume">2만+</div>
+            <div class="tags"><span class="tag">김우빈</span> <span class="tag">김우빈 신민아</span> <span class="tag">김우빈 신민아 결혼</span></div>
+        </div>
+        
+        <div class="trend-card" style="--rank: 4">
+            <div class="rank">#4</div>
+            <div class="keyword">손종원</div>
+            <div class="volume">10만+</div>
+            <div class="tags"><span class="tag">안성재</span> <span class="tag">선재스님</span> <span class="tag">아기맹수</span></div>
+        </div>
+        
+        <div class="trend-card" style="--rank: 5">
+            <div class="rank">#5</div>
+            <div class="keyword">로또1203회당첨번호</div>
+            <div class="volume">2만+</div>
+            <div class="tags"><span class="tag">그저께</span> <span class="tag">로또 1203 회</span> <span class="tag">1203 회 로또 당첨 번호</span></div>
+        </div>
+        
+        <div class="trend-card" style="--rank: 6">
+            <div class="rank">#6</div>
+            <div class="keyword">이노스페이스</div>
+            <div class="volume">2천+</div>
+            <div class="tags"><span class="tag">2천+</span> <span class="tag">4시간 전</span></div>
+        </div>
+        
+        <div class="trend-card" style="--rank: 7">
+            <div class="rank">#7</div>
+            <div class="keyword">나폴리 대 볼로냐</div>
+            <div class="volume">5천+</div>
+            <div class="tags"><span class="tag">5천+</span> <span class="tag">7시간 전</span> <span class="tag">수페르코파 이탈리아나</span></div>
+        </div>
+        
+        <div class="trend-card" style="--rank: 8">
+            <div class="rank">#8</div>
+            <div class="keyword">송성문</div>
+            <div class="volume">5천+</div>
+            <div class="tags"><span class="tag">5천+</span> <span class="tag">김혜성</span></div>
+        </div>
+        
+        <div class="trend-card" style="--rank: 9">
+            <div class="rank">#9</div>
+            <div class="keyword">오디세이</div>
+            <div class="volume">2천+</div>
+            <div class="tags"><span class="tag">2천+</span> <span class="tag">11시간 전</span></div>
+        </div>
+        
+        <div class="trend-card" style="--rank: 10">
+            <div class="rank">#10</div>
+            <div class="keyword">불꽃야구</div>
+            <div class="volume">5천+</div>
+            <div class="tags"><span class="tag">5천+</span> <span class="tag">jtbc</span> <span class="tag">스튜디오c1</span></div>
+        </div>
+        </div>
+</body>
+</html>

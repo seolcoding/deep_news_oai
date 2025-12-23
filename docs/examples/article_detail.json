@@ -1,0 +1,42 @@
+{
+  "prompt": "기사 01600451.20251223134747001 상세 내용 보여줘",
+  "response": {
+    "structuredContent": {
+      "news_id": "01600451.20251223134747001",
+      "title": "\"불확실성 시대, 고전 지혜서 리더의 길 찾아야\"",
+      "publisher": "남도일보",
+      "date": "20251223",
+      "summary": "광주상공회의소는 23일 오전 7시 라마다플라자 광주호텔에서 기업 CEO 등을 대상으로 제286차 광주경제포럼을 열었다. /광주상의 제공광주상공회의소는 23일 오전 7시 라마다플라자 광주호텔에서 기업 CEO 등을 대상으로 제286차 광주경제포럼을 열었다. <br/><br/>이날 포럼은 국내 최고의 동양철학 전문가이자 인문학 멘토인 박재희 동서대학교 석좌교수("
+    },
+    "content": "[남도일보] \"불확실성 시대, 고전 지혜서 리더의 길 찾아야\"",
+    "_meta": {
+      "openai/outputTemplate": "widget://article_detail",
+      "openai/widgetCSP": [
+        "*.bigkinds.or.kr",
+        "*.chosun.com",
+        "*.donga.com",
+        "*.joongang.co.kr",
+        "*.hankyung.com",
+        "*.mk.co.kr",
+        "*.hani.co.kr",
+        "*.khan.co.kr",
+        "*.kbs.co.kr",
+        "*.sbs.co.kr",
+        "*.mbc.co.kr",
+        "*.yna.co.kr"
+      ],
+      "full_data": {
+        "news_id": "01600451.20251223134747001",
+        "title": "\"불확실성 시대, 고전 지혜서 리더의 길 찾아야\"",
+        "content": "광주상공회의소는 23일 오전 7시 라마다플라자 광주호텔에서 기업 CEO 등을 대상으로 제286차 광주경제포럼을 열었다. /광주상의 제공광주상공회의소는 23일 오전 7시 라마다플라자 광주호텔에서 기업 CEO 등을 대상으로 제286차 광주경제포럼을 열었다. <br/><br/>이날 포럼은 국내 최고의 동양철학 전문가이자 인문학 멘토인 박재희 동서대학교 석좌교수(석천학당 원..",
+        "publisher": "남도일보",
+        "published_date": "20251223",
+        "url": "www.namdonews.com/news/articleView.html?idxno=843368",
+        "author": "김용석 기자",
+        "images": [
+          "https://www.bigkinds.or.kr/resources/images/01600451/2025/12/23/01600451.20251223134747001.01.jpg"
+        ]
+      }
+    }
+  }
+}

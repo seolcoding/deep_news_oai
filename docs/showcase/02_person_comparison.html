@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>👥 인물 뉴스 비교</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .header h1 { font-size: 2.5rem; color: #1a1a2e; }
+        .header .period { color: #666; margin-top: 10px; }
+        .comparison {
+            display: flex;
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .person-col {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--color);
+        }
+        .person-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--color);
+        }
+        .count {
+            font-size: 1.2rem;
+            color: #666;
+        }
+        .bar-container {
+            height: 12px;
+            background: #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        .bar {
+            height: 100%;
+            background: var(--color);
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+        .headlines {
+            margin-bottom: 20px;
+        }
+        .headline {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        .publishers {
+            font-size: 0.85rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>👥 인물별 뉴스 비교 분석</h1>
+        <div class="period">2025-12-16 ~ 2025-12-23</div>
+    </div>
+    <div class="comparison">
+        <div class="person-col" style="--color: #ff6b6b">
+            <div class="person-header">
+                <div class="name">윤석열</div>
+                <div class="count">3,460건</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar" style="width: 48%"></div>
+            </div>
+            <div class="headlines">
+                <div class="headline">• 내란 겪은 한국인, 경제성장 보다 ‘민주주의 성숙’ 원한다...</div><div class="headline">• ‘일반이적 혐의’ 尹 구속 연장 기로…‘건진법사’ 결심공판...</div><div class="headline">• [속보] “고용보장 안 되면 삼보일배”…‘李 청와대 복귀’ 후 해고 위기...</div><div class="headline">• 내란전담재판부 설치법, 민주당 주도로 본회의 통과...</div><div class="headline">• 한일 해저터널과 침략의 땅 [임병식의 일본, 일본인 이야기]...</div>
+            </div>
+            <div class="publishers">
+                주요 언론사: 뉴스핌, YTN, 서울경제
+            </div>
+        </div>
+        
+        <div class="person-col" style="--color: #4ecdc4">
+            <div class="person-header">
+                <div class="name">이재명</div>
+                <div class="count">7,067건</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar" style="width: 100%"></div>
+            </div>
+            <div class="headlines">
+                <div class="headline">• 李대통령 "연말연시 안전대책, '과하다' 비난받을 정도 조치 바람직"...</div><div class="headline">• [속보] “고용보장 안 되면 삼보일배”…‘李 청와대 복귀’ 후 해고 위기...</div><div class="headline">• 李대통령 “연말연시 안전 대책, ‘과하다’ 싶을 정도로 이중·삼중 점검 ...</div><div class="headline">• 노동부, 근로감독관 700명 추가 증원…지방노동관서 행정조직 개편...</div><div class="headline">• 기후부, 2030년 플라스틱 배출량 30% 줄인다…일회용품 감축 속도...</div>
+            </div>
+            <div class="publishers">
+                주요 언론사: 데일리안, 국민일보, 이데일리
+            </div>
+        </div>
+        
+        <div class="person-col" style="--color: #45b7d1">
+            <div class="person-header">
+                <div class="name">한동훈</div>
+                <div class="count">685건</div>
+            </div>
+            <div class="bar-container">
+                <div class="bar" style="width: 9%"></div>
+            </div>
+            <div class="headlines">
+                <div class="headline">• 선 긋는 김재원, '우리는 하나' 한동훈 러브샷한 김문수에 "덕담이 과도...</div><div class="headline">• '가발·어깨뽕·키높이' 한동훈 비난글에 홍준표 "정치 잘못 배워서"...</div><div class="headline">• "코미디""무책임한 정치투쟁"...장동혁 '최장 필버' 질타한 與...</div><div class="headline">• [시사정각] 24시간 필리버스터 도전 장동혁 조금 전 종료...다음 승부...</div><div class="headline">• ‘김건희 수사무마’ 규명 막판 속도...</div>
+            </div>
+            <div class="publishers">
+                주요 언론사: YTN, 노컷뉴스, 세계일보
+            </div>
+        </div>
+        </div>
+</body>
+</html>

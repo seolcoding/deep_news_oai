@@ -1,0 +1,187 @@
+{
+  "prompt": "오늘 실시간 트렌딩 키워드 알려줘",
+  "response": {
+    "structuredContent": {
+      "date": "2025-12-23",
+      "issue_count": 10,
+      "top_issues": [
+        {
+          "rank": 1,
+          "title": "정희원",
+          "keywords": [
+            "정희원 카톡",
+            "정희원 논란",
+            "장제원"
+          ]
+        },
+        {
+          "rank": 2,
+          "title": "대홍수",
+          "keywords": [
+            "대홍수 해석",
+            "김다미",
+            "김병우"
+          ]
+        },
+        {
+          "rank": 3,
+          "title": "신민아",
+          "keywords": [
+            "김우빈",
+            "김우빈 신민아",
+            "김우빈 신민아 결혼"
+          ]
+        },
+        {
+          "rank": 4,
+          "title": "손종원",
+          "keywords": [
+            "안성재",
+            "선재스님",
+            "아기맹수"
+          ]
+        },
+        {
+          "rank": 5,
+          "title": "로또1203회당첨번호",
+          "keywords": [
+            "그저께",
+            "로또 1203 회",
+            "1203 회 로또 당첨 번호"
+          ]
+        }
+      ]
+    },
+    "content": "2025-12-23 인기 이슈 10개: 정희원",
+    "_meta": {
+      "openai/outputTemplate": "widget://trending_issues",
+      "openai/widgetCSP": [
+        "*.bigkinds.or.kr",
+        "*.chosun.com",
+        "*.donga.com",
+        "*.joongang.co.kr",
+        "*.hankyung.com",
+        "*.mk.co.kr",
+        "*.hani.co.kr",
+        "*.khan.co.kr",
+        "*.kbs.co.kr",
+        "*.sbs.co.kr",
+        "*.mbc.co.kr",
+        "*.yna.co.kr"
+      ],
+      "full_data": {
+        "issues": [
+          {
+            "rank": 1,
+            "title": "정희원",
+            "keywords": [
+              "정희원 카톡",
+              "정희원 논란",
+              "장제원"
+            ],
+            "search_volume": "2만+",
+            "growth_rate": "1,000%"
+          },
+          {
+            "rank": 2,
+            "title": "대홍수",
+            "keywords": [
+              "대홍수 해석",
+              "김다미",
+              "김병우"
+            ],
+            "search_volume": "2만+",
+            "growth_rate": "1,000%"
+          },
+          {
+            "rank": 3,
+            "title": "신민아",
+            "keywords": [
+              "김우빈",
+              "김우빈 신민아",
+              "김우빈 신민아 결혼"
+            ],
+            "search_volume": "2만+",
+            "growth_rate": "1,000%"
+          },
+          {
+            "rank": 4,
+            "title": "손종원",
+            "keywords": [
+              "안성재",
+              "선재스님",
+              "아기맹수"
+            ],
+            "search_volume": "10만+",
+            "growth_rate": "600%"
+          },
+          {
+            "rank": 5,
+            "title": "로또1203회당첨번호",
+            "keywords": [
+              "그저께",
+              "로또 1203 회",
+              "1203 회 로또 당첨 번호",
+              "로또1203"
+            ],
+            "search_volume": "2만+",
+            "growth_rate": "1,000%"
+          },
+          {
+            "rank": 6,
+            "title": "이노스페이스",
+            "keywords": [
+              "2천+",
+              "4시간 전"
+            ],
+            "search_volume": "2천+",
+            "growth_rate": "1,000%"
+          },
+          {
+            "rank": 7,
+            "title": "나폴리 대 볼로냐",
+            "keywords": [
+              "5천+",
+              "7시간 전",
+              "수페르코파 이탈리아나"
+            ],
+            "search_volume": "5천+",
+            "growth_rate": "1,000%"
+          },
+          {
+            "rank": 8,
+            "title": "송성문",
+            "keywords": [
+              "5천+",
+              "김혜성"
+            ],
+            "search_volume": "5천+",
+            "growth_rate": "600%"
+          },
+          {
+            "rank": 9,
+            "title": "오디세이",
+            "keywords": [
+              "2천+",
+              "11시간 전"
+            ],
+            "search_volume": "2천+",
+            "growth_rate": "1,000%"
+          },
+          {
+            "rank": 10,
+            "title": "불꽃야구",
+            "keywords": [
+              "5천+",
+              "jtbc",
+              "스튜디오c1"
+            ],
+            "search_volume": "5천+",
+            "growth_rate": "400%"
+          }
+        ],
+        "date": "2025-12-23"
+      }
+    }
+  }
+}

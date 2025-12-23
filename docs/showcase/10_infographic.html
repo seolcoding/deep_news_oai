@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>📊 뉴스 인포그래픽</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 40px;
+            color: white;
+        }
+        .infographic {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #ffd700, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero .keyword {
+            font-size: 4rem;
+            font-weight: 900;
+            margin: 20px 0;
+        }
+        .big-number {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            padding: 50px 0;
+        }
+        .big-stat {
+            text-align: center;
+        }
+        .big-stat .value {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #ffd700;
+        }
+        .big-stat .label { color: #888; }
+        .section {
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #4ecdc4;
+        }
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .bar-label { width: 100px; text-align: right; }
+        .bar-container {
+            flex: 1;
+            height: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 15px;
+            font-weight: bold;
+        }
+        .timeline-mini {
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            height: 150px;
+            padding-top: 20px;
+        }
+        .timeline-bar {
+            flex: 1;
+            background: linear-gradient(180deg, #ff6b6b, #ffd700);
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 5px;
+            font-size: 0.7rem;
+        }
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="infographic">
+        <div class="hero">
+            <h1>📊 뉴스 분석 리포트</h1>
+            <div class="keyword">"반도체"</div>
+            <p>2025-12-09 ~ 2025-12-23</p>
+        </div>
+        
+        <div class="big-number">
+            <div class="big-stat">
+                <div class="value">7,725</div>
+                <div class="label">총 기사 수</div>
+            </div>
+            <div class="big-stat">
+                <div class="value">72</div>
+                <div class="label">언론사</div>
+            </div>
+            <div class="big-stat">
+                <div class="value">2</div>
+                <div class="label">분석 기간</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📈 주요 언론사 보도량</h2>
+            <div class="bar-chart">
+                
+                <div class="bar-row">
+                    <div class="bar-label">뉴스핌</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 100%">30</div>
+                    </div>
+                </div>
+                
+                <div class="bar-row">
+                    <div class="bar-label">머니투데이</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 96%">29</div>
+                    </div>
+                </div>
+                
+                <div class="bar-row">
+                    <div class="bar-label">서울경제</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 90%">27</div>
+                    </div>
+                </div>
+                
+                <div class="bar-row">
+                    <div class="bar-label">이데일리</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 83%">25</div>
+                    </div>
+                </div>
+                
+                <div class="bar-row">
+                    <div class="bar-label">아시아경제</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 83%">25</div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📅 일별 보도량 추이</h2>
+            <div class="timeline-mini">
+                
+                <div class="timeline-bar" style="height: 22%">
+                    <span>92</span>
+                </div>
+                
+                <div class="timeline-bar" style="height: 100%">
+                    <span>408</span>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="footer">
+            Deep News OAI · Generated 2025-12-23 14:12
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>📰 뉴스 매거진</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Pretendard', serif;
+            background: #faf9f6;
+            min-height: 100vh;
+            padding: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 3px solid #1a1a2e;
+            padding-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .article {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .article:hover { transform: translateY(-5px); }
+        .article.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        .article-img {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-size: cover;
+            background-position: center;
+        }
+        .article.large .article-img { height: 400px; }
+        .article-content { padding: 20px; }
+        .category {
+            color: #667eea;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        h3 {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+        .article.large h3 { font-size: 1.8rem; }
+        .meta {
+            font-size: 0.85rem;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📰 오늘의 뉴스</h1>
+        <p style="color: #666; margin-top: 10px">2025-12-23</p>
+    </div>
+    <div class="grid">
+        <article class="article large">
+            <div class="article-img" style="background-image: url('https://www.bigkinds.or.kr/resources/images/01200101/2025/12/23/01200101.20251223141108001.01.jpg')"></div>
+            <div class="article-content">
+                <div class="category">004000000 004008000
+004000000 004009000
+004000000 004006000</div>
+                <h3>불빛 아래에서 쉬어가는 연말… 인천관광공사, ‘오픈 포트 크리스마스, 불멍’ 개최</h3>
+                <div class="meta">경기일보 · 20251223</div>
+            </div>
+        </article>
+        
+        <article class="article small">
+            <div class="article-img" style="background-image: url('https://www.bigkinds.or.kr/resources/images/01400201/2025/12/23/01400201.20251223141052001.01.jpg')"></div>
+            <div class="article-content">
+                <div class="category">006000000 006011000
+006000000 006005000
+006000000 006014000</div>
+                <h3>보은청년회의소 제55주년 창립회장단 이 취임식</h3>
+                <div class="meta">대전일보 · 20251223</div>
+            </div>
+        </article>
+        
+        <article class="article small">
+            <div class="article-img" style="background-image: url('https://www.bigkinds.or.kr/resources/images/01100101/2025/12/23/01100101.20251223141023001.01.jpg')"></div>
+            <div class="article-content">
+                <div class="category">003000000 003006000
+003000000 003005000
+003000000 003009000</div>
+                <h3>노동부, ‘직장 내 괴롭힘 관리 소홀’ 양양군청에 과태료 800만 원</h3>
+                <div class="meta">경향신문 · 20251223</div>
+            </div>
+        </article>
+        
+        <article class="article small">
+            <div class="article-img" style="background-image: url('https://www.bigkinds.or.kr/resources/images/01100101/2025/12/23/01100101.20251223141020001.01.jpeg')"></div>
+            <div class="article-content">
+                <div class="category">004000000 004011000</div>
+                <h3>내란 겪은 한국인, 경제성장 보다 ‘민주주의 성숙’ 원한다</h3>
+                <div class="meta">경향신문 · 20251223</div>
+            </div>
+        </article>
+        
+        <article class="article small">
+            <div class="article-img" style="background-image: url('https://www.bigkinds.or.kr/resources/images/02100401/2025/12/23/02100401.20251223140959001.01.jpg')"></div>
+            <div class="article-content">
+                <div class="category">006000000 006014000
+006000000 006013000
+006000000 006004000</div>
+                <h3>울릉군, ‘2025년 겨울빛 트리 점등식’ 성황리 개최</h3>
+                <div class="meta">메트로경제 · 20251223</div>
+            </div>
+        </article>
+        
+        <article class="article small">
+            <div class="article-img" style="background-image: url('https://www.bigkinds.or.kr/resources/images/01620001/2025/12/23/01620001.20251223140958001.01.jpg')"></div>
+            <div class="article-content">
+                <div class="category">006000000 006010000
+003000000 003009000
+006000000 006002000</div>
+                <h3>금호석유화학 여수공장, 장애인 ‘산타썰매단 사랑나눔’</h3>
+                <div class="meta">광남일보 · 20251223</div>
+            </div>
+        </article>
+        </div>
+</body>
+</html>
